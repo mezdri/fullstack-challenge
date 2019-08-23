@@ -20,6 +20,7 @@ from apps.base.views import index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', index),
-    url(r'^api-auth/', include('rest_framework.urls'))
+    # url(r'', index),
+    url(r'^api-auth/', include('rest_framework.urls')),
+    url('api_scraper/', include('apps.scraper.urls'))
 ]
