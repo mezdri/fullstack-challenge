@@ -8,7 +8,7 @@ class Categories(models.Model):
 
     name = models.CharField(max_length=20)
 
-    
+
 class Books(models.Model):
 
     category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
@@ -17,4 +17,4 @@ class Books(models.Model):
     price = models.CharField(max_length=20)
     stock = models.BooleanField()
     product_description = models.TextField()
-    upc = models.CharField(max_length=30)
+    upc = models.CharField(max_length=40)
