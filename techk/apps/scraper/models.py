@@ -12,8 +12,8 @@ class Categories(models.Model):
 class Books(models.Model):
 
     category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    title = models.CharField(max_length=60)
-    thumbnail_url = models.CharField(max_length=100)
+    title = models.CharField(max_length=150)
+    thumbnail_url = models.CharField(max_length=150)
     price = models.CharField(max_length=20)
     stock = models.BooleanField()
     product_description = models.TextField()
