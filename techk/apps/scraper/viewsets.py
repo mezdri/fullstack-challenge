@@ -32,27 +32,20 @@ class ScraperView(viewsets.ModelViewSet):
         """
         html = requests.get(url).text
         soup = bs(html, 'lxml')
-
         categories_raw = soup.find('div', {'class': 'side_categories'}).get_text()
         categories = categories_raw.split()
-
         self.save_categories(categories)
-
-        # print(categories)
-
         pageNumbers = soup.find_all('ul', {"class": "pager"})[0].find_all('li', {'class': 'current'})[0].get_text()
         lastPages = [int(val) for val in pageNumbers.split() if self.is_number(val.replace(',', ''))]
         dic = {}
         lista = []
-
-        for pageNumber in range(1):  # max(lastPages)):
-
+        for pageNumber in range(max(lastPages)):
             aux_index = url.find('-')
             new_url = url[:aux_index + 1] + str(pageNumber + 1) + ".html"
 
             page_html = requests.get(new_url).text.encode('utf-8').decode('iso-8859-1')
             page_soup = bs(page_html, 'lxml')
-            books = soup.find('ol', {'class': 'row'}).find_all('li')
+            books = page_soup.find('ol', {'class': 'row'}).find_all('li')
             for book in books:
                 book_url = book.find('div', {'class': 'image_container'}).find_all('a')[0]['href']
                 book_html = requests.get('http://books.toscrape.com/catalogue/' + book_url).text
