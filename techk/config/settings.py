@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
-    '0.0.0.0:8069'
+    'localhost:8069'
 )
 
 INSTALLED_APPS = [
