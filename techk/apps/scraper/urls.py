@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 # urlpatterns = router.urls
 
 urlpatterns = [
-    path('books/', BookViewSet),
+    path('books/', csrf_exempt(BookViewSet.as_view({'get': 'list'}))),
     path('scraper/', csrf_exempt(ScraperView.as_view({'post': 'post'}))),
 ]
 

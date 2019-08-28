@@ -27,13 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# Application definition
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:8000'
+    '0.0.0.0:8069'
 )
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',

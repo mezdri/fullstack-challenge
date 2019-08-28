@@ -2,6 +2,8 @@ from django.shortcuts import render_to_response
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
 
 from .models import Books, Categories
 from .serializer import BookSerializer
@@ -13,12 +15,19 @@ import requests
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Books.objects.all()
     serializer_class = BookSerializer
+    renderer_classes = [JSONRenderer]
 
+    def list(self, request):
+        if request.method == 'GET':
+            result = self.queryset.all()
+            serializer_list = self.serializer_class(result, many=True)
+            return Response(serializer_list.data)
+        else:
+            Response({'response': ''}, 403)
 
 class ScraperView(viewsets.ModelViewSet):
     books_queryset = Books.objects.all()
     categories_queryset = Categories.objects.all()
-    serializer_class = BookSerializer
 
     def post(self, request):
 
